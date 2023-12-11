@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+
+    input {
+      width: 70%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 8px 15px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    li:hover {
+      background-color: #f0f0f0;
+    }
+
+    li button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+
+    li ul {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    li ul li {
+      background-color: #f8f9fa;
+      border: 1px solid #ced4da;
+    }
+
+  </style>
+</head>
+<body>
+  <input placeholder="Ajouter une note" (input)="onNoteInput($event)" [value]="newNote" />
+
+  <br/>
+  <button (click)="addNote()" class="btn btn-primary">Ajouter</button>
+  <button (click)="ListeNote()" class="btn btn-primary">Liste</button>
+  <button (click)="addSubNote()" class="btn btn-primary">Ajouter une sous-note</button>
+  <br/>
+  
+  <ul>
+    <li *ngFor="let n of _notes; let i = index" [ngStyle]="{'color': generateColor()}">
+      {{ n }}
+      <button (click)="deleteNote(i)" class="btn btn-danger">X</button>
+      <ul *ngIf="i === _notes.length - 1"> 
+        <li *ngFor="let subNote of _subNotes; let j = index" [ngStyle]="{'color': generateColor()}">
+          {{ subNote }}
+          <button class="btn btn-danger">X</button>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
